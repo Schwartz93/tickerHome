@@ -36,16 +36,35 @@ const output = {
             "text": "Tor in der 50. Minute nach einer Ecke von Fitz.",
             "time": "54'"
         },
+        {
+            "id": "7",
+            "title": "Wechsel bei der Austria",
+            "text": "Fitz muss gehen, es kommt Turgeman",
+            "time": "70'"
+        }
     ]
 };
 
-(function showInitialMessages() {
+var arr = [];
+
+(function getMessageInfo() {
     let today = new Date();
+
+    let messagesLength = output.messages.length;
+    let containerElement = "<div class='tickerMessages'></div>";
     let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
 
-    document.querySelector(".badge").innerHTML += output.messages.length;
-    document.querySelector(".container").innerHTML += "<div class='tickerMessages'></div>";
-    document.querySelector(".updated_at").innerHTML += time;
+    arr.push(messagesLength, containerElement, time);
+    setInterval(getMessageInfo, 1000);
+
+}());
+
+
+(function showInitialMessages() {
+
+    document.querySelector(".badge").innerHTML += arr[0];
+    document.querySelector(".container").innerHTML += arr[1];
+    document.querySelector(".updated_at").innerHTML += arr[2];
 
     let display = '';
     display += "<button class='show btn btn-warning' onclick='showAll();'>Show all</button>";
@@ -67,6 +86,7 @@ const output = {
                 + "</div>";
         }
     }
+    //setInterval(getMessageInfo, 1000);
 }());
 
 function showAll() {
@@ -81,7 +101,6 @@ function reverseOrder() {
 function generateMessages() {
     let display = '';
     display += "<button class=\"show btn btn-warning\" onclick=\"reverseOrder(); \">Reverse Order</button>";
-
 
     for (let i = 0; i <= output.messages.length; i++) {
         document.querySelector(".tickerMessages").innerHTML = display;
