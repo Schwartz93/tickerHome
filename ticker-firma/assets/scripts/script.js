@@ -39,7 +39,7 @@ const output = {
     ]
 };
 
-(function show3Messages() {
+(function showInitialMessages() {
     let today = new Date();
     let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
 
@@ -70,23 +70,18 @@ const output = {
 }());
 
 function showAll() {
-    let display = '';
-    display += "<button class=\"show btn btn-warning\" onclick=\"reverseOrder(); \">Reverse Order</button>";
-
-    for (let i = 0; i <= output.messages.length; i++) {
-        document.querySelector(".tickerMessages").innerHTML = display;
-        display += "<div class='singleMessage'>"
-            + "<h3>" + output.messages[i]["title"] + "</h3>"
-            + "<p>" + output.messages[i]["text"] + "</p>"
-            + "<span>" + output.messages[i]["time"] + "<span>"
-            + "</div>";
-    }
+    generateMessages();
 }
 
 function reverseOrder() {
-    let display = '';
     output.messages.reverse();
+    generateMessages();
+}
+
+function generateMessages() {
+    let display = '';
     display += "<button class=\"show btn btn-warning\" onclick=\"reverseOrder(); \">Reverse Order</button>";
+
 
     for (let i = 0; i <= output.messages.length; i++) {
         document.querySelector(".tickerMessages").innerHTML = display;
@@ -96,5 +91,4 @@ function reverseOrder() {
             + "<span>" + output.messages[i]["time"] + "<span>"
             + "</div>";
     }
-
 }
